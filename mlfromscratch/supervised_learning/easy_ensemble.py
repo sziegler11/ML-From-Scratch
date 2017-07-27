@@ -27,6 +27,21 @@ class DecisionStump():
 		self.alpha = None
 
 class EasyEnsembleClassifier():
+	"""Ensemble method, extending AdaBoost to perform repeated trials
+	from independent undersampled or oversampled data sets. Useful for training 
+	on unbalanced data sets. See https://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/tsmcb09.pdf
+
+    Parameters:
+    -----------
+    n_clf: int
+        The number of weak classifiers that will be used per sample
+    n_iter: int
+    	The number of independent samples on which to train classifiers
+    random_state: int
+    	Random state for the EasyEnsemble object
+    replacement: boolean
+    	Should the independent subsets be sampled with replacement
+    """
 
 	def __init__(self, n_clf=5, n_iter=5, random_state=None, replacement=False):
 		self.n_clf = n_clf
