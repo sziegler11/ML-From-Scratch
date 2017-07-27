@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Import helper functions
-from mlfromscratch.utils.data_manipulation import train_test_split
-from mlfromscratch.utils.data_operation import accuracy_score
-from mlfromscratch.utils import Plot
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+# from ..utils import Plot
 
 # Decision stump used as weak classifier in Adaboost
 class DecisionStump():
@@ -131,19 +131,24 @@ def main():
     y[y == digit2] = 1
     X = data.data[idx]
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+    acnet = 0
+
+
 
     # Adaboost classification
-    clf = Adaboost(n_clf=5)
-    clf.fit(X_train, y_train)
-    y_pred = clf.predict(X_test)
+    for it in range(100):
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+        clf = Adaboost(n_clf=5)
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
 
-    accuracy = accuracy_score(y_test, y_pred)
+        accuracy = accuracy_score(y_test, y_pred)
+        acnet += accuracy
 
-    print ("Accuracy:", accuracy)
+    print ("Net Accuracy:", acnet/100.0)
 
     # Reduce dimensions to 2d using pca and plot the results
-    Plot().plot_in_2d(X_test, y_pred, title="Adaboost", accuracy=accuracy)
+    # Plot().plot_in_2d(X_test, y_pred, title="Adaboost", accuracy=accuracy)
 
 
 if __name__ == "__main__":
